@@ -4,24 +4,28 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class CalcTestWPlus {
+class CalcTest {
 
     @BeforeAll
+    @Tag("ForAll")
     public static void setUp(){
         System.out.println("before all");
     }
 
     @BeforeEach
+    @Tag("ForAll")
     public void setUpEach(){
         System.out.println("before each");
     }
 
     @AfterAll
+    @Tag("ForAll")
     public static void afterAll(){
         System.out.println("after all");
     }
 
     @AfterEach
+    @Tag("ForAll")
     public void afterEach(){
         System.out.println("after each");
     }
@@ -36,6 +40,7 @@ class CalcTestWPlus {
     }
 
     @RepeatedTest(10)
+    @Tag("summ")
     @DisplayName("Проверка суммирования 2")
     void summ2() {
         Calc calc = new Calc();
@@ -55,7 +60,7 @@ class CalcTestWPlus {
 
     @Test
     @DisplayName("Проверка вычитания 1")
-    @Tag("Positive_result")
+    @Tag("minus")
     void minus1() {
         Calc calc = new Calc();
         int result = calc.minusing(55, 52);
@@ -66,7 +71,7 @@ class CalcTestWPlus {
     @ParameterizedTest(name = "#{index} - Из {0} вычитаем {1}, ожидаем {2}")
     @CsvSource({"23, 20, 3", "52, 52, 0", "1, 10, -9", "0, 0, 0"})
     @DisplayName("Проверка вычитания 2")
-    @Tag("Negative_result")
+    @Tag("parametrizedMinus")
     void minus2(int x, int y, int expectedResult) {
         Calc calc = new Calc();
         int result = calc.minusing(x, y);
