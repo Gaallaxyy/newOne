@@ -4,9 +4,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class CalcTest {
+class CalcTestWPlus {
 
     @BeforeAll
     public static void setUp(){
@@ -30,7 +28,6 @@ class CalcTest {
 
     @Test
     @DisplayName("Проверка суммирования 1")
-    @Timeout(10)
     @Tag("summ")
     void summ1() {
         Calc calc = new Calc();
@@ -40,7 +37,6 @@ class CalcTest {
 
     @RepeatedTest(10)
     @DisplayName("Проверка суммирования 2")
-    @Timeout(10)
     void summ2() {
         Calc calc = new Calc();
         int result = calc.summing(1, 6);
@@ -51,18 +47,30 @@ class CalcTest {
     @CsvSource({"1, 2, 3", "-1, 2, 1", "0, 0, 0"})
     @DisplayName("Проверка суммирования 3")
     @Tag("parametrizedSum")
-    void summ3(int x, int y, int expectedresult) {
+    void summ3(int x, int y, int expectedResult) {
         Calc calc = new Calc();
         int result = calc.summing(x, y);
-        Assertions.assertEquals(expectedresult, result, "Не тот ответ");
+        Assertions.assertEquals(expectedResult, result, "Не тот ответ");
     }
 
     @Test
-    @DisplayName("Проверка вычитания")
-    @Tag("minus")
+    @DisplayName("Проверка вычитания 1")
+    @Tag("Positive_result")
     void minus1() {
         Calc calc = new Calc();
         int result = calc.minusing(55, 52);
         Assertions.assertEquals(3, result, "Не верно");
+    }
+
+
+    @ParameterizedTest(name = "#{index} - Из {0} вычитаем {1}, ожидаем {2}")
+    @CsvSource({"23, 20, 3", "52, 52, 0", "1, 10, -9", "0, 0, 0"})
+    @DisplayName("Проверка вычитания 2")
+    @Tag("Negative_result")
+    void minus2(int x, int y, int expectedResult) {
+        Calc calc = new Calc();
+        int result = calc.minusing(x, y);
+        Assertions.assertEquals(expectedResult, result, "Не тот ответ");
+
     }
 }
